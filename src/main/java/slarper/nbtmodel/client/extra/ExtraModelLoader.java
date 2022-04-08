@@ -2,9 +2,12 @@ package slarper.nbtmodel.client.extra;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.InvalidIdentifierException;
+import slarper.nbtmodel.NbtModel;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,10 +30,17 @@ public class ExtraModelLoader {
                                 ConfigObject config = GSON.fromJson(reader,ConfigObject.class);
                                 for (String model : config.models){
                                     out.accept(new Identifier(model));
+                                    NbtModel.LOGGER.info("loading extra model : " + model);
                                 }
                             }
                         } catch (IOException e) {
-                            // nothing. because can not find extra/models.json is normal.
+                            // nothing. because can not find "extra/models.json" in most namespaces is normal.
+                        } catch (NullPointerException e){
+                            NbtModel.LOGGER.error("Failed to \"new\" an InputStreamReader",e);
+                        } catch (JsonSyntaxException e){
+                            NbtModel.LOGGER.error("Gson can not get valid json from namespace : " + namespace,e);
+                        } catch (InvalidIdentifierException e){
+                            NbtModel.LOGGER.error("Failed to \"new\" an Identifier",e);
                         }
                     }
                 }
