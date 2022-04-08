@@ -46,6 +46,7 @@ public abstract class MixinItemModels {
                 }
             } catch (InvalidIdentifierException e){
                 // Don't log this exception
+                // It's OK.
             }
 
             cir.setReturnValue(bakedModel == null? this.getModelManager().getMissingModel() : bakedModel);
