@@ -31,24 +31,21 @@ public abstract class MixinItemModels {
             cancellable = true
     )
     private void getModelByNbt(ItemStack stack, CallbackInfoReturnable<BakedModel> cir){
+        // if model is actually not specified, getString will return ""
         String model = stack.getOrCreateNbt().getString("Model");
-        // getString in last line return "" as null.
         if (!model.equals("")){
             BakedModel bakedModel = null;
             try {
                 Identifier id = new Identifier(model);
                 // BakedModelManagerHelper::getModel ONLY provides extra models.
-                // So if the model is an existing item model such as apple
-                // Please use {Model:"minecraft:apple"} instead of {Model:"minecraft:item/apple"}
-                // Off course {Model:apple} is the simplest.
+                // Other models must be specified with corresponding item id.
                 if (Registry.ITEM.containsId(id)){
                     bakedModel = this.getModel(Registry.ITEM.get(id));
                 } else {
                     bakedModel = BakedModelManagerHelper.getModel(this.getModelManager(), id);
                 }
-            }catch (InvalidIdentifierException e){
+            } catch (InvalidIdentifierException e){
                 // Don't log this exception
-                // because it will fill the Debug Console.
             }
 
             cir.setReturnValue(bakedModel == null? this.getModelManager().getMissingModel() : bakedModel);
