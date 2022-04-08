@@ -1,29 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "nbtmodel",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Nbt Model Mod",
+  "description": "Support for using nbt to specify item stack's model.",
   "authors": [
-    "Me!"
+    "Slarper on github"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Slarper/nbt-model",
+    "sources": "https://github.com/Slarper/nbt-model"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/nbtmodel/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "slarper.nbtmodel.NbtModel"
+    ],
+    "client": [
+      "slarper.nbtmodel.client.NbtModelClient"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "nbtmodel.mixins.json"
   ],
 
   "depends": {

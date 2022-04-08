@@ -1,8 +1,20 @@
-# Fabric Example Mod
+# Nbt Model Mod
 
 ## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+clone this repository to your pc and `gradle publishToMavenLocal` to your local maven.
+
+and add these lines to your `build.gradle`
+
+```groovy
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+	modImplementation ""
+}
+```
 
 ## License
 
