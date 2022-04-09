@@ -1,5 +1,9 @@
 # Nbt Model Mod
 
+## Tutorial
+
+See [Wiki](https://github.com/Slarper/nbt-model/wiki)
+
 ## Setup
 
 clone this repository to your pc and `gradle publishToMavenLocal` to your local maven.
