@@ -33,32 +33,26 @@ public abstract class MixinItemModels {
             cancellable = true
     )
     private void getModelByNbt(ItemStack stack, CallbackInfoReturnable<BakedModel> cir){
-        if (stack.hasNbt()){
-            NbtCompound nbt = stack.getNbt();
-            if (nbt!=null && nbt.contains("Model")){
-                // if model is not properly specified, getString will return ""
-                String model = nbt.getString("Model");
-                if (model.equals("")){
-                    nbt.remove("Model");
-                    NbtModel.LOGGER.info("Improper model specification");
-                } else {
-                    BakedModel bakedModel = null;
-
-                    try {
-                        Identifier id = new Identifier(model);
-                        if (Registry.ITEM.containsId(id)){
-                            bakedModel = this.getModel(Registry.ITEM.get(id));
-                        }else {
-                            bakedModel = BakedModelManagerHelper.getModel(this.getModelManager(), id);
-                        }
-
-                    } catch (InvalidIdentifierException e){
-                        nbt.remove("Model");
-                        NbtModel.LOGGER.error("Invalid model id.",e);
+        NbtCompound nbt = stack.getNbt();
+        if (stack.hasNbt() && nbt!=null && nbt.contains("Model")){
+            String model = nbt.getString("Model");
+            if (!model.equals("")){
+                BakedModel bakedModel = null;
+                try {
+                    Identifier id = new Identifier(model);
+                    if (Registry.ITEM.containsId(id)){
+                        bakedModel = this.getModel(Registry.ITEM.get(id));
+                    }else {
+                        bakedModel = BakedModelManagerHelper.getModel(this.getModelManager(), id);
                     }
-
-                    cir.setReturnValue(bakedModel == null? this.getModelManager().getMissingModel() : bakedModel);
+                } catch (InvalidIdentifierException e){
+                    nbt.remove("Model");
+                    NbtModel.LOGGER.error("Invalid model id.",e);
                 }
+                cir.setReturnValue(bakedModel == null? this.getModelManager().getMissingModel() : bakedModel);
+            }else {
+                nbt.remove("Model");
+                NbtModel.LOGGER.info("Improper model specification");
             }
         }
     }
