@@ -60,9 +60,6 @@ public abstract class MixinItemModels {
                     cir.setReturnValue(bakedModel == null? this.getModelManager().getMissingModel() : bakedModel);
                 }
             }
-
         }
-
-
     }
 }
