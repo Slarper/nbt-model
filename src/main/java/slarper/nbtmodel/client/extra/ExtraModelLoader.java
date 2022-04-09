@@ -2,7 +2,8 @@ package slarper.nbtmodel.client.extra;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;
@@ -15,6 +16,7 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class ExtraModelLoader {
     public final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final String CONFIG_PATH = "nbtmodel:extra/models.json";
