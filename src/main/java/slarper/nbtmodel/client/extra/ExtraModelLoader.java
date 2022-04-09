@@ -35,7 +35,7 @@ public class ExtraModelLoader {
                             }
                         }
                     } catch (IOException e) {
-                        NbtModel.LOGGER.error("Failed to find or parse models.json.",e);
+                        NbtModel.LOGGER.error("Failed to find or parse one of the models.json.",e);
                     } catch (InvalidIdentifierException e){
                         NbtModel.LOGGER.error("Failed to parse id",e);
                     }
